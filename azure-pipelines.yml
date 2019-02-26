@@ -26,6 +26,7 @@ steps:
     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
     azureContainerRegistry: $(azureContainerRegistry)
     dockerComposeFile: docker-compose.yml
+    additionalDockerComposeFiles: docker-compose.ci.yml
     qualifyImageNames: true
     additionalImageTags: $(Build.BuildNumber)
     includeLatestTag: false
