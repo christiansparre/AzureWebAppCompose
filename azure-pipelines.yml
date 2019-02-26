@@ -31,10 +31,15 @@ steps:
     includeLatestTag: false
 
 - task: Bash@3
-  displayName: Create Docker Compose deployment file
+  displayName: Create deployment file
   inputs:
     targetType: inline
     script: | 
       sed 's/{{REGISTRY}}/$(azureContainerRegistry)/g' docker-compose-azdeploy-template.yml > docker-compose-azdeploy.yml
       sed -i 's/{{BUILDNUMBER}}/$(Build.BuildNumber)/g' docker-compose-azdeploy.yml
       cat docker-compose-azdeploy.yml
+
+- task: PublishPipelineArtifact@0
+  displayName: Publish deployment file
+  inputs:
+    targetPath: docker-compose-azdeploy.yml
