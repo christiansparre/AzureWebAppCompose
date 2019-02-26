@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -49,7 +51,20 @@ namespace AzureWebAppCompose
                 
                 var list = await mongoDatabase.ListCollectionNames().ToListAsync();
 
-                await context.Response.WriteAsync($"Hello World! Found {list.Count} collections");
+
+                var builder = new StringBuilder();
+
+                builder.AppendLine($"Hello World! Found {list.Count} collections");
+                builder.AppendLine();
+                builder.AppendLine("Environment variables");
+
+                foreach (DictionaryEntry kv in Environment.GetEnvironmentVariables())
+                {
+                    builder.AppendLine($"{kv.Key} = '{kv.Value}'");
+                }
+
+                context.Response.ContentType = "text/plain";
+                await context.Response.WriteAsync(builder.ToString());
             });
         }
     }

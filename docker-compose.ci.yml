@@ -1,0 +1,7 @@
+version: '3.4'
+
+services:
+  azurewebappcompose:
+    build:
+      args:
+        BUILD_NUMBER: ${BUILD_BUILDNUMBER}
