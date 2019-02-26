@@ -36,5 +36,5 @@ steps:
     targetType: inline
     script: | 
       sed 's/{{REGISTRY}}/$(azureContainerRegistry)/g' docker-compose-azdeploy-template.yml > docker-compose-azdeploy.yml
-      sed -i 's/{{VERSION}}/$( $(Build.BuildNumber))/g' docker-compose-azdeploy.yml
+      sed -i 's/{{BUILDNUMBER}}/$(Build.BuildNumber)/g' docker-compose-azdeploy.yml
       cat docker-compose-azdeploy.yml
