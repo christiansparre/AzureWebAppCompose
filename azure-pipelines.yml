@@ -9,9 +9,20 @@ name: $(Date:yyyyMMdd)$(Rev:.rrr)-$(Build.SourceBranchName)
 
 steps:
 - task: DockerCompose@0
-  displayName: Build services
+  displayName: Build service images
   inputs:
     action: Build services
+    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+    azureContainerRegistry: $(azureContainerRegistry)
+    dockerComposeFile: docker-compose.yml
+    qualifyImageNames: true
+    additionalImageTags: $(Build.BuildNumber)
+    includeLatestTag: false
+
+- task: DockerCompose@0
+  displayName: Push service images
+  inputs:
+    action: Push services
     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
     azureContainerRegistry: $(azureContainerRegistry)
     dockerComposeFile: docker-compose.yml
