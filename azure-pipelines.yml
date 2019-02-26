@@ -30,3 +30,11 @@ steps:
     additionalImageTags: $(Build.BuildNumber)
     includeLatestTag: false
 
+- task: Bash@3
+  displayName: Create Docker Compose deployment file
+  inputs:
+    targetType: inline
+    script: | 
+      sed 's/{{REGISTRY}}/$(azureContainerRegistry)/g' docker-compose-azdeploy-template.yml > docker-compose-azdeploy.yml
+      sed -i 's/{{VERSION}}/$( $(Build.BuildNumber))/g' docker-compose-azdeploy.yml
+      cat docker-compose-azdeploy.yml

@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  azurewebappcompose:
+    image: {{REGISTRY}}/azurewebappcompose:{{BUILDNUMBER}}
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - MongoConnectionString=mongodb://mongo/TestDb
+    ports:
+      - "80"
+    restart: always
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    restart: always
