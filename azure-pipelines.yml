@@ -17,4 +17,5 @@ steps:
     dockerComposeFile: docker-compose.yml
     qualifyImageNames: true
     additionalImageTags: $(Build.BuildNumber)
+    includeLatestTag: false
 
