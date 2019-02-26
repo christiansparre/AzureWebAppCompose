@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  azurewebappcompose:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=44375
+      - MongoConnectionString=mongodb://mongo/TestDb
+    ports:
+      - "57497:80"
+      - "44375:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  mongo:
+    image: mongo:latest

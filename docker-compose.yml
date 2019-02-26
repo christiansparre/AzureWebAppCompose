@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  azurewebappcompose:
+    image: ${DOCKER_REGISTRY-}azurewebappcompose
+    build:
+      context: .
+      dockerfile: AzureWebAppCompose/Dockerfile
